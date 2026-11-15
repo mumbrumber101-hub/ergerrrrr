@@ -33,7 +33,8 @@
     const controls = [];
     const activeView = () => document.querySelector('.tab[aria-selected="true"]')?.dataset.panel || 'passages';
     const scope = () => window.aaePassages?.getScope() === 'passage' ? 'passage' : 'all';
-    const snapshot = () => JSON.stringify([Object.keys(fields).map(key => String(activeFilters[key] || '')), Number(uiPage) || 1, scope()]);
+    const wholeWords = () => window.aaePassages?.getWholeWords?.() === true;
+    const snapshot = () => JSON.stringify([Object.keys(fields).map(key => String(activeFilters[key] || '')), Number(uiPage) || 1, scope(), wholeWords()]);
     const readText = value => typeof value === 'string' && value.length <= MAX_QUERY && !/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(value) ? value : '';
     const currentChildren = () => [...entries.children];
     const sameChildren = () => filterNodes && filterNodes.length === entries.children.length && filterNodes.every((node, i) => node === entries.children[i]);
@@ -86,6 +87,7 @@
             if (value) url.searchParams.set(parameter, value);
           }
           if (scope() !== 'all') url.searchParams.set('scope', scope());
+          if (wholeWords()) url.searchParams.set('whole', '1');
           if (Number(uiPage) > 1) url.searchParams.set('page', String(uiPage));
         }
       }
@@ -190,7 +192,7 @@
           if (category) category.dispatchEvent(new Event('change', { bubbles: true }));
           schedule();
         });
-      } else if (view === 'passages' && [...Object.values(fields), 'scope', 'page'].some(key => query.has(key))) {
+      } else if (view === 'passages' && [...Object.values(fields), 'scope', 'whole', 'page'].some(key => query.has(key))) {
         const filters = { search: readText(query.get('q')) };
         for (const key of ['category', 'story', 'species', 'verification']) {
           const value = query.get(fields[key]) || '';
@@ -202,6 +204,7 @@
           filters.tagType = tagType; filters.crossTag = tag;
         }
         window.aaePassages?.setScope(query.get('scope') === 'passage' ? 'passage' : 'all', { apply: false });
+        window.aaePassages?.setWholeWords?.(query.get('whole') === '1', { apply: false });
         resetPassageFilters(filters);
         const requestedPage = query.get('page') || '1';
         uiPage = /^\d{1,8}$/.test(requestedPage) ? Math.max(1, Math.min(maximumPage, Number(requestedPage))) : 1;
@@ -216,11 +219,11 @@
     document.addEventListener('aae:passages-change', recordFilters);
     // Capture changes whose native listener may debounce rendering.
     document.addEventListener('input', event => {
-      if (event.target.matches('#searchInput,#categorySelect,#storySelect,#speciesSelect,#verificationSelect,#aae-search-scope')) pendingInput = true;
+      if (event.target.matches('#searchInput,#categorySelect,#storySelect,#speciesSelect,#verificationSelect,#aae-search-scope,#aae-whole-words')) pendingInput = true;
       schedule();
     }, true);
     document.addEventListener('change', event => {
-      if (event.target.matches('#searchInput,#categorySelect,#storySelect,#speciesSelect,#verificationSelect,#aae-search-scope')) pendingInput = true;
+      if (event.target.matches('#searchInput,#categorySelect,#storySelect,#speciesSelect,#verificationSelect,#aae-search-scope,#aae-whole-words')) pendingInput = true;
       schedule();
     }, true);
     // The native Reading view listener holds its original function reference, so a

@@ -13,7 +13,7 @@
     const passagesPanel = document.getElementById('passagesPanel');
     if (!tabs || !speciesPanel || !speciesIndex || !speciesSearch || !passagesPanel) return;
     if (window.__aaeEcologicalEnhancement) return;
-    window.__aaeEcologicalEnhancement = { version: 'species-layout-1' };
+    window.__aaeEcologicalEnhancement = { version: 'species-layout-2' };
 
     const state = {
       origin: null,
@@ -29,6 +29,22 @@
     const setText = (element, value) => {
       if (element.textContent !== value) element.textContent = value;
     };
+    let speciesAliases;
+    function aliasesFor(canonical) {
+      if (!speciesAliases) {
+        speciesAliases = new Map();
+        // Match the native index's normalization, preserving each original name.
+        // data-variants is space-joined and cannot recover multiword alias boundaries.
+        if (typeof DATABASE !== 'undefined' && typeof normalizeSpecies === 'function') {
+          DATABASE.entries.forEach(entry => (entry.species_mentioned || []).forEach(raw => {
+            const key = normalizeSpecies(raw).toLowerCase();
+            if (!speciesAliases.has(key)) speciesAliases.set(key, new Set());
+            speciesAliases.get(key).add(raw);
+          }));
+        }
+      }
+      return [...(speciesAliases.get(canonical) || [])];
+    }
 
     // One tablist keeps the original Arrow/Home/End and roving-tabindex behavior.
     // The two groups are presentational; original buttons and panel IDs are moved intact.
@@ -161,9 +177,24 @@
         let visibleInGroup = 0;
         const rows = [...group.querySelectorAll('.index-item')];
         rows.forEach(row => {
-          const searchable = `${row.dataset.canonical || ''} ${row.dataset.variants || ''}`.toLowerCase();
-          const match = (!category.value || category.value === name) && searchable.includes(query);
+          const canonical = (row.dataset.canonical || '').toLowerCase();
+          const canonicalMatch = canonical.includes(query);
+          const aliases = query && !canonicalMatch ? aliasesFor(canonical) : [];
+          const alternate = aliases.find(alias => alias.toLowerCase() === query) ||
+            aliases.find(alias => alias.toLowerCase().includes(query));
+          const match = (!category.value || category.value === name) && (canonicalMatch || !!alternate);
           row.hidden = !match;
+          let note = row.querySelector('.aae-alias-match');
+          const showAlias = match && !!query && !canonicalMatch && !!alternate;
+          if (showAlias && !note) {
+            note = document.createElement('span');
+            note.className = 'aae-alias-match';
+            row.querySelector('.species-passage-link').append(note);
+          }
+          if (note) {
+            note.hidden = !showAlias;
+            if (showAlias) setText(note, 'Matched alternate name: ' + alternate);
+          }
           total += 1;
           if (match) { visible += 1; visibleInGroup += 1; }
         });
