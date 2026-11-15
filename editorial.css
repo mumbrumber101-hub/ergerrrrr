@@ -144,3 +144,41 @@ button:not(.photo-term):not(.passage-preview):not(.text-button):not(.connection-
  #speciesIndex .species-guide-item{grid-template-columns:minmax(0,1fr);gap:0}
  #speciesIndex .field-guide-species-button{justify-self:start;padding-left:0;padding-right:10px}
 }
+
+/* Passage previews and shareable result controls. */
+.aae-search-scope{display:flex;flex:0 1 270px;align-items:center;gap:8px;min-width:0;max-width:100%;color:var(--ink-light);font:400 13px/1.5 var(--sans)}
+.aae-search-scope>span{flex:0 0 auto;white-space:nowrap}
+.aae-search-scope select{flex:1;min-width:0;width:auto;max-width:100%}
+.entry>.aae-quote-preview{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;max-width:760px;margin:0 16px 14px;color:var(--ink);font:400 21px/1.45 var(--serif);overflow-wrap:normal;word-break:normal}
+.entry>.aae-match-note{max-width:760px;margin:-5px 16px 16px;color:var(--ink-light);font:400 12px/1.5 var(--sans);overflow-wrap:normal;word-break:normal}
+.entry.open>.aae-quote-preview{display:none}
+.aae-quote-preview mark{padding:0 .05em;background:#E5EBD7;color:var(--ink)}
+.aae-results-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;min-width:0;margin:14px 0 18px;color:var(--ink-light);font:400 13px/1.5 var(--sans)}
+.aae-copy-results{min-height:44px;max-width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:2px;background:var(--paper);color:var(--accent);font:400 13px/1.4 var(--sans);white-space:normal;cursor:pointer}
+.aae-copy-results:hover{background:var(--highlight)}
+.aae-results-status{min-width:0;margin:0;overflow-wrap:normal;word-break:normal}
+.aae-results-fallback{flex:1 1 100%;min-width:0;max-width:760px;margin-top:4px}
+.aae-results-fallback label{display:block;margin-bottom:6px;font:400 13px/1.5 var(--sans);color:var(--ink-light)}
+.aae-results-url{display:block;width:100%;max-width:100%;min-height:88px;resize:vertical;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-all;font:400 13px/1.5 var(--sans)}
+
+/* On phones the native filters move into one disclosure, then return on wider screens. */
+#aae-passage-filters{flex:1 1 100%;min-width:0;max-width:100%;border:1px solid var(--border-light);border-radius:2px;background:var(--paper)}
+#aae-filter-summary{min-height:44px;padding:10px 12px;color:var(--accent);font:400 14px/1.5 var(--sans);cursor:pointer;list-style-position:inside;overflow-wrap:normal;word-break:normal}
+#aae-filter-summary::marker{color:var(--accent)}
+#aae-filter-summary:hover{background:var(--highlight)}
+.aae-filter-fields{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding:4px 12px 14px;min-width:0}
+.aae-filter-field{display:flex;flex-direction:column;gap:5px;min-width:0;max-width:100%;color:var(--ink-light);font:400 13px/1.5 var(--sans)}
+.aae-filter-field select{min-width:0;width:100%;max-width:100%}
+.aae-passage-actions{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+#aae-passage-filters[hidden],.aae-passage-actions[hidden]{display:none!important}
+@media(max-width:650px){
+ .aae-search-scope{flex:1 1 100%;width:100%}
+ .aae-search-scope select{width:100%;font-size:16px}
+ #passagesPanel .aae-compact-toolbar{align-items:center;gap:10px}
+ #passagesPanel .aae-compact-toolbar>.count-display{flex:1 1 100%;width:100%;margin:0;color:var(--ink-light);font-size:13px}
+ #passagesPanel .aae-compact-toolbar>.aae-passage-actions{flex:1 1 100%;width:100%}
+ #passagesPanel .aae-compact-toolbar .aae-filter-field select{font-size:16px}
+ .entry>.aae-quote-preview{margin:0 12px 14px;font-size:20px}
+ .entry>.aae-match-note{margin:-5px 12px 14px}
+ .aae-results-tools{margin:12px 0 16px}
+}

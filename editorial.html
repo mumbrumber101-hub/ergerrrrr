@@ -23,12 +23,16 @@
     appUrl.hash = window.location.hash;
     const directoryPath = new URL('./', appUrl).pathname;
     const stylesheetUrl = new URL('./editorial.css', window.location.href);
-    const enhancementUrl = new URL('./editorial.js', window.location.href);
+    const enhancements = [
+      ['easterwine-editorial-script', './editorial.js'],
+      ['easterwine-passages-script', './passages.js'],
+      ['easterwine-results-script', './results.js'],
+      ['easterwine-compact-filters-script', './compact-filters.js']
+    ];
     const parameters = new URL(window.location.href).searchParams;
     const design = parameters.get('design');
     const version = design || parameters.get('v');
     if (version) stylesheetUrl.searchParams.set(design ? 'design' : 'v', version);
-    if (version) enhancementUrl.searchParams.set(design ? 'design' : 'v', version);
 
     function appWindow() {
       try {
@@ -47,6 +51,22 @@
       if (child.location.hash !== window.location.hash) window.history.replaceState(window.history.state, '', address.href);
       const open = child.document.querySelector('.aae-open-window');
       if (open) {
+        if (typeof child.aaeResults?.url === 'function') {
+          const link = child.aaeResults.url();
+          if (link) {
+            const current = new URL(link, window.location.href);
+            if (current.origin === appUrl.origin && current.pathname === window.location.pathname) {
+              open.href = current.href;
+              open.textContent = 'Open full window';
+              return;
+            }
+          } else {
+            address.search = '';
+            address.hash = '';
+            if (version) address.searchParams.set(design ? 'design' : 'v', version);
+            open.textContent = 'Open full tool';
+          }
+        }
         const selected = child.document.querySelector('.tab[aria-selected="true"]');
         if (selected?.dataset.panel) address.searchParams.set('view', selected.dataset.panel);
         open.href = address.href;
@@ -71,16 +91,22 @@
           doc.head.appendChild(link);
         }));
       }
-      if (!doc.getElementById('easterwine-editorial-script')) {
-        const script = doc.createElement('script');
-        script.id = 'easterwine-editorial-script';
-        script.src = enhancementUrl.href;
-        assets.push(new Promise(resolve => {
-          script.onload = resolve;
-          script.onerror = resolve;
-          doc.head.appendChild(script);
-        }));
-      }
+      assets.push((async () => {
+        for (const [id, path] of enhancements) {
+          if (doc.getElementById(id)) continue;
+          const url = new URL(path, window.location.href);
+          if (version) url.searchParams.set(design ? 'design' : 'v', version);
+          await new Promise(resolve => {
+            const script = doc.createElement('script');
+            script.id = id;
+            script.src = url.href;
+            script.onload = resolve;
+            script.onerror = resolve;
+            doc.head.appendChild(script);
+          });
+        }
+        mirrorChildHash();
+      })());
       if (window !== window.top && !doc.querySelector('.aae-open-window')) {
         const open = doc.createElement('a');
         open.className = 'aae-open-window';
@@ -95,6 +121,9 @@
       child.addEventListener('hashchange', mirrorChildHash);
       child.addEventListener('popstate', mirrorChildHash);
       doc.addEventListener('click', () => child.requestAnimationFrame(mirrorChildHash), true);
+      doc.addEventListener('aae:results-change', mirrorChildHash);
+      doc.addEventListener('input', () => child.requestAnimationFrame(mirrorChildHash), true);
+      doc.addEventListener('change', () => child.requestAnimationFrame(mirrorChildHash), true);
       mirrorChildHash();
     });
 
