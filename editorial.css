@@ -9,7 +9,7 @@ h1,h2,h3,h4,h5{font-family:var(--serif);font-weight:400;letter-spacing:0;text-tr
 body>header{background:var(--paper);color:var(--ink);border:0}
 body>header .header-inner{padding:0;min-height:0}
 html.aae-editorial body>header h1{display:none}
-.fixed-nav{position:static;max-width:980px;margin:0 auto;padding:12px 20px 8px;justify-content:flex-end;gap:6px}
+.fixed-nav{position:static;max-width:1240px;margin:0 auto;padding:12px 20px 8px;justify-content:flex-end;align-items:center;gap:6px}
 .fixed-nav button{width:44px;height:44px;border:1px solid var(--border);border-radius:2px;background:var(--paper);color:var(--ink);box-shadow:none;font-size:20px}
 .fixed-nav button:hover{background:var(--highlight);color:var(--ink);transform:none}
 .tabs{display:flex;flex-wrap:nowrap;gap:6px;position:sticky;top:0;z-index:15;padding:8px 20px 12px;background:var(--paper);border-bottom:1px solid var(--border-light);overflow-x:auto;overscroll-behavior-x:contain}
@@ -18,9 +18,9 @@ html.aae-editorial body>header h1{display:none}
 .tabs .tab.active{background:var(--accent);border-color:var(--accent);color:var(--paper);font-weight:400}
 .tabs .tab:hover{background:var(--highlight);color:var(--ink)}
 .tabs .tab.active:hover{background:var(--accent);color:var(--paper)}
-.view-controls,.nav-breadcrumb{max-width:980px;margin:0 auto;padding:12px 20px}
+.view-controls,.nav-breadcrumb{max-width:1240px;margin:0 auto;padding:12px 20px}
 .nav-breadcrumb:empty{display:none}
-.panel{max-width:980px;padding:24px 20px 40px;min-width:0}
+.panel{max-width:1240px;padding:24px 20px 40px;min-width:0}
 .panel>*,.toolbar>*,.entry-header>*,.meta-grid>*,.compare-selector>*,.comparison-columns>*,.passage-comparison-columns>*{min-width:0}
 .toolbar{gap:12px;margin-bottom:20px;padding-bottom:18px;border-color:var(--border-light)}
 input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea{min-height:44px;max-width:100%;border:1px solid var(--border);border-radius:2px;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.5;padding:10px 12px}
@@ -95,4 +95,52 @@ button:not(.photo-term):not(.passage-preview):not(.text-button):not(.connection-
  .notebook-card,.passage-comparison-column{padding:14px}
  .discovery-modal-header{flex-wrap:wrap;padding:14px}
  .discovery-modal-content{padding:18px 14px}
+}
+
+/* Ecological index review: use the tool width without widening reading prose. */
+.aae-open-window{display:inline-flex;align-items:center;min-height:44px;max-width:calc(100% - 106px);margin-right:auto;padding:8px 0;color:var(--accent);font:400 13px/1.4 var(--sans);text-underline-offset:3px;overflow-wrap:normal;word-break:normal}
+.tabs:has(.aae-nav-groups),.tabs.aae-nav-groups{position:static;display:block;overflow:visible;max-width:1240px;margin:0 auto;padding:12px 20px 16px;overscroll-behavior:auto}
+.aae-nav-groups{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0;width:100%;max-width:1240px;margin:0 auto}
+.aae-nav-group{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-width:0;max-width:100%;margin:0;padding:0;border:0;background:var(--paper)}
+.aae-nav-label{flex:0 0 64px;min-width:0;color:var(--ink-light);font:500 12px/1.4 var(--sans);letter-spacing:0;text-transform:none}
+.aae-nav-group .tab{flex:0 0 auto;min-width:0;max-width:100%;min-height:44px;white-space:normal;overflow-wrap:normal;word-break:normal}
+#speciesPanel .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:8px}
+#speciesPanel .toolbar #speciesSearch{flex:1 1 260px;width:auto;min-width:0}
+#speciesPanel .toolbar #speciesCategory{flex:0 1 260px;width:auto;min-width:0}
+#speciesClear,#speciesReturn{min-height:44px;padding:9px 12px;border:1px solid var(--border);border-radius:2px;background:var(--paper);color:var(--ink);font:400 13px/1.4 var(--sans);white-space:normal}
+#speciesClear:hover,#speciesReturn:hover{background:var(--highlight)}
+#speciesReturn{display:inline-flex;align-items:center;max-width:100%;margin:0 0 18px;color:var(--accent)}
+#speciesReturn[hidden]{display:none!important}
+.species-results-context{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin:0 0 18px;min-width:0}
+.species-results-context[hidden]{display:none!important}
+.species-results-context #speciesReturn{flex:0 1 auto;margin:0}
+#speciesResultHeading{flex:1 1 240px;min-width:0;margin:0;color:var(--ink);font:400 22px/1.3 var(--serif);overflow-wrap:normal;word-break:normal}
+#speciesStatus{flex:1 1 100%;margin:0 0 18px;color:var(--ink-light);font:400 13px/1.5 var(--sans)}
+#speciesPanel .toolbar #speciesStatus{margin:0}
+#speciesEmpty{max-width:760px;margin:16px 0;padding:16px 0;color:var(--ink);font:400 16px/1.6 var(--sans)}
+#speciesIndex{display:block;columns:auto;column-count:auto;column-width:auto;column-gap:normal;min-width:0}
+#speciesIndex .species-category-group{break-inside:auto;min-width:0;margin:0 0 32px}
+#speciesIndex .species-category-header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin:0 0 10px;padding:8px 0 10px;border-bottom:1px solid var(--border-light);color:var(--ink);font:400 24px/1.25 var(--serif);overflow-wrap:normal;word-break:normal}
+#speciesIndex .species-category-header span{color:var(--ink-light);font:400 13px/1.5 var(--sans)}
+#speciesIndex .species-category-items{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));align-items:start;gap:4px 24px;min-width:0;padding:0}
+#speciesIndex .species-guide-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-width:0;width:100%;padding:10px 0;border-bottom:1px solid var(--border-light);border-radius:0;cursor:default;overflow-wrap:normal;word-break:normal}
+#speciesIndex .species-passage-link{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:4px;min-width:0;min-height:44px;width:100%;padding:4px 0;overflow-wrap:normal;word-break:normal;white-space:normal}
+#speciesIndex .species-passage-link .name{display:block;max-width:100%;font:400 17px/1.4 var(--sans);overflow-wrap:normal;word-break:normal;hyphens:none}
+#speciesIndex .species-passage-link .count{display:block;max-width:100%;color:var(--ink-light);font:400 13px/1.5 var(--sans);white-space:normal;text-align:left;overflow-wrap:normal;word-break:normal}
+#speciesIndex .field-guide-species-button{min-height:44px;margin:0;padding:8px 6px;border:1px solid transparent;border-radius:2px;background:transparent;color:var(--accent);font:400 13px/1.4 var(--sans);white-space:nowrap;text-underline-offset:3px;box-shadow:none}
+#speciesIndex .field-guide-species-button:hover{background:var(--highlight);text-decoration:underline}
+#speciesIndex [hidden],#speciesEmpty[hidden]{display:none!important}
+@media(max-width:650px){
+ .tabs:has(.aae-nav-groups),.tabs.aae-nav-groups{padding:10px 14px 14px}
+ .aae-nav-groups{gap:12px}
+ .aae-nav-label{flex-basis:100%;padding:0 0 2px}
+ #speciesPanel .toolbar{gap:10px}
+ #speciesPanel .toolbar #speciesSearch,#speciesPanel .toolbar #speciesCategory{flex:1 1 100%;width:100%;font-size:16px}
+ #speciesStatus{margin-bottom:14px}
+ #speciesIndex .species-category-group{margin-bottom:26px}
+ #speciesIndex .species-category-items{gap:4px 18px}
+}
+@media(max-width:420px){
+ #speciesIndex .species-guide-item{grid-template-columns:minmax(0,1fr);gap:0}
+ #speciesIndex .field-guide-species-button{justify-self:start;padding-left:0;padding-right:10px}
 }

@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ecological Lafferty</title>
-  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#F8F8F4}iframe{display:block;width:100%;height:100%;border:0;visibility:hidden}</style>
+  <style>html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#F8F8F4}iframe{display:block;width:100%;height:100%;border:0;visibility:hidden}.load-status{position:absolute;inset:0;display:grid;place-items:center;padding:24px;color:#565E55;font:18px/1.5 Georgia,serif}.load-status[hidden]{display:none}</style>
 </head>
 <body>
+  <div id="load-status" class="load-status" role="status">Loading ecological passages…</div>
   <iframe id="ecological-app" title="Ecological Lafferty research tool" allow="clipboard-write"></iframe>
   <script>
   (() => {
@@ -14,18 +15,20 @@
     let revealTimer;
     function reveal() {
       frame.style.visibility = 'visible';
+      document.getElementById('load-status').hidden = true;
       window.clearTimeout(revealTimer);
     }
-    revealTimer = window.setTimeout(reveal, 8000);
     const appUrl = new URL('./index.html', window.location.href);
     appUrl.search = window.location.search;
     appUrl.hash = window.location.hash;
     const directoryPath = new URL('./', appUrl).pathname;
     const stylesheetUrl = new URL('./editorial.css', window.location.href);
+    const enhancementUrl = new URL('./editorial.js', window.location.href);
     const parameters = new URL(window.location.href).searchParams;
     const design = parameters.get('design');
     const version = design || parameters.get('v');
     if (version) stylesheetUrl.searchParams.set(design ? 'design' : 'v', version);
+    if (version) enhancementUrl.searchParams.set(design ? 'design' : 'v', version);
 
     function appWindow() {
       try {
@@ -38,10 +41,16 @@
 
     function mirrorChildHash() {
       const child = appWindow();
-      if (!child || child.location.hash === window.location.hash) return;
+      if (!child) return;
       const address = new URL(window.location.href);
       address.hash = child.location.hash;
-      window.history.replaceState(window.history.state, '', address.href);
+      if (child.location.hash !== window.location.hash) window.history.replaceState(window.history.state, '', address.href);
+      const open = child.document.querySelector('.aae-open-window');
+      if (open) {
+        const selected = child.document.querySelector('.tab[aria-selected="true"]');
+        if (selected?.dataset.panel) address.searchParams.set('view', selected.dataset.panel);
+        open.href = address.href;
+      }
     }
 
     frame.addEventListener('load', () => {
@@ -49,15 +58,40 @@
       if (!child) { reveal(); return; }
       const doc = child.document;
       doc.documentElement.classList.add('aae-editorial');
+      revealTimer = window.setTimeout(reveal, 8000);
+      const assets = [];
       if (!doc.getElementById('easterwine-editorial-stylesheet')) {
         const link = doc.createElement('link');
         link.id = 'easterwine-editorial-stylesheet';
         link.rel = 'stylesheet';
         link.href = stylesheetUrl.href;
-        link.onload = reveal;
-        link.onerror = reveal;
-        doc.head.appendChild(link);
-      } else { reveal(); }
+        assets.push(new Promise(resolve => {
+          link.onload = resolve;
+          link.onerror = resolve;
+          doc.head.appendChild(link);
+        }));
+      }
+      if (!doc.getElementById('easterwine-editorial-script')) {
+        const script = doc.createElement('script');
+        script.id = 'easterwine-editorial-script';
+        script.src = enhancementUrl.href;
+        assets.push(new Promise(resolve => {
+          script.onload = resolve;
+          script.onerror = resolve;
+          doc.head.appendChild(script);
+        }));
+      }
+      if (window !== window.top && !doc.querySelector('.aae-open-window')) {
+        const open = doc.createElement('a');
+        open.className = 'aae-open-window';
+        open.textContent = 'Open full window';
+        open.target = '_blank';
+        open.rel = 'noopener';
+        open.href = window.location.href;
+        open.addEventListener('click', mirrorChildHash);
+        doc.querySelector('.fixed-nav')?.prepend(open);
+      }
+      Promise.allSettled(assets).then(reveal);
       child.addEventListener('hashchange', mirrorChildHash);
       child.addEventListener('popstate', mirrorChildHash);
       doc.addEventListener('click', () => child.requestAnimationFrame(mirrorChildHash), true);
@@ -76,3 +110,4 @@
   </script>
 </body>
 </html>
+
