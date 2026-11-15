@@ -373,11 +373,14 @@
       return modes;
     }
     const readingToggle = document.getElementById('passagesOnlyToggle');
-    if (readingToggle) readingToggle.addEventListener('click', () => {
-      const modes = captureReadingModes();
-      readingRenderModes = modes;
-      queueMicrotask(() => { if (readingRenderModes === modes) readingRenderModes = null; });
-    }, true);
+    if (readingToggle) {
+      readingToggle.addEventListener('click', () => {
+        readingRenderModes = captureReadingModes();
+      }, true);
+      // Registered after the native target listener, so cleanup follows its replacements.
+      // A microtask can run between capture and target listeners and clear this too early.
+      readingToggle.addEventListener('click', () => { readingRenderModes = null; });
+    }
     const originalReadingToggle = window.uiToggleReadingMode;
     if (typeof originalReadingToggle === 'function') {
       window.uiToggleReadingMode = function () {
