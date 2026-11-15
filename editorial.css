@@ -54,6 +54,8 @@ button:not(.photo-term):not(.passage-preview):not(.text-button):not(.connection-
 .panel h2,.notebook-heading h2,.field-guide-heading h2,.places-heading h2,.passage-comparison h2,.passage-comparison-works-heading{font:400 32px/1.15 var(--serif);color:var(--ink);letter-spacing:0;text-transform:none}
 .work-card h3,.story-card h3,.pattern-header h3,.concept-name,.motif-card h4,.field-guide-card h3,.places-card h3,.notebook-card-heading h3,.passage-comparison-column h3,.photo-dialog h2{font:400 24px/1.25 var(--serif);color:var(--ink);letter-spacing:0;text-transform:none;overflow-wrap:anywhere}
 .work-card,.story-card,.pattern-card,.concept-card,.motif-card,.notebook-card,.passage-comparison-column,.field-guide-card,.places-card,.network-node,.concept-detail-box{background:var(--paper);border-color:var(--border-light);border-radius:2px;box-shadow:none}
+.subindex-group>h3{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--border-light)}
+.subindex-group>h3 .subindex-header{color:var(--ink);min-height:44px}
 .index-item,.subindex-item,.subindex-header,.species-passage-link,.species-category-header{font-family:var(--sans);font-size:15px;line-height:1.5}
 .index-item .count,.subindex-item .count,.species-category-header span,.pattern-header h3 .count-badge{font:400 12px/1.4 var(--sans)}
 .notebook-title,.notebook-note,.notebook-copy-fallback textarea{font:400 18px/1.6 var(--sans)}
