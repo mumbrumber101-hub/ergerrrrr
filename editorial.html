@@ -60,6 +60,7 @@
       } else { reveal(); }
       child.addEventListener('hashchange', mirrorChildHash);
       child.addEventListener('popstate', mirrorChildHash);
+      doc.addEventListener('click', () => child.requestAnimationFrame(mirrorChildHash), true);
       mirrorChildHash();
     });
 
