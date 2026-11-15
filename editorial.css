@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap");
+
+:root{--paper:#F8F8F4;--ink:#20261F;--ink-light:#565E55;--ink-faint:#565E55;--accent:#356269;--accent-dark:#294E54;--accent-light:#356269;--border:#879180;--border-light:#D9DDD5;--highlight:#F0F2EC;--group-bg:#F8F8F4;--nav-bg:#F8F8F4;--muted:#565E55;--bg:#F8F8F4;--sans:Poppins,Arial,sans-serif;--serif:"EB Garamond",Georgia,serif}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans)}
+button,input,select,textarea{font-family:var(--sans)!important}
+a{color:var(--accent);text-underline-offset:3px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+h1,h2,h3,h4,h5{font-family:var(--serif);font-weight:400;letter-spacing:0;text-transform:none}
+body>header{background:var(--paper);color:var(--ink);border:0}
+body>header .header-inner{padding:0;min-height:0}
+html.aae-editorial body>header h1{display:none}
+.fixed-nav{position:static;max-width:980px;margin:0 auto;padding:12px 20px 8px;justify-content:flex-end;gap:6px}
+.fixed-nav button{width:44px;height:44px;border:1px solid var(--border);border-radius:2px;background:var(--paper);color:var(--ink);box-shadow:none;font-size:20px}
+.fixed-nav button:hover{background:var(--highlight);color:var(--ink);transform:none}
+.tabs{display:block;position:sticky;top:0;z-index:15;padding:0 20px;background:var(--paper);border-bottom:1px solid var(--border-light);overflow-x:auto;overscroll-behavior-x:contain}
+.tabs-inner{width:max-content;min-width:100%;max-width:none;display:flex;gap:6px;margin:0;padding:8px 0 12px}
+.tabs .tab{flex:0 0 auto;min-height:44px;padding:10px 14px;border:1px solid var(--border);border-radius:2px;background:var(--paper);color:var(--ink);font:400 14px/1.4 var(--sans);letter-spacing:0;text-transform:none}
+.tabs .tab.active{background:var(--accent);border-color:var(--accent);color:var(--paper);font-weight:400}
+.tabs .tab:hover{background:var(--highlight);color:var(--ink)}
+.tabs .tab.active:hover{background:var(--accent);color:var(--paper)}
+.view-controls,.nav-breadcrumb{max-width:980px;margin:0 auto;padding:12px 20px}
+.nav-breadcrumb:empty{display:none}
+.panel{max-width:980px;padding:24px 20px 40px;min-width:0}
+.panel>*,.toolbar>*,.entry-header>*,.meta-grid>*,.compare-selector>*,.comparison-columns>*,.passage-comparison-columns>*{min-width:0}
+.toolbar{gap:12px;margin-bottom:20px;padding-bottom:18px;border-color:var(--border-light)}
+input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea{min-height:44px;max-width:100%;border:1px solid var(--border);border-radius:2px;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.5;padding:10px 12px}
+.toolbar input,.toolbar select{min-width:0;max-width:100%;background:var(--paper);font-size:14px}
+button:not(.photo-term):not(.passage-preview):not(.text-button):not(.connection-action){min-height:44px}
+.random-discovery-btn,.clear-all-btn,.clear-filter-btn,.back-btn,.view-btn,.pagination button,.entry-tool-actions button,.notebook-tools button,.notebook-card-actions button,.notebook-copy-fallback button,.pcompare-button,.places-button,.field-guide-button,.field-guide-species-button,.photo-passages-button,.photo-dialog .photo-view,.photo-dialog .photo-close{min-height:44px;padding:9px 12px;border:1px solid var(--border);border-radius:2px;background:var(--paper);color:var(--ink);font-size:13px;line-height:1.4;font-weight:400;letter-spacing:0;text-transform:none}
+.random-discovery-btn{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+.view-btn.active,.entry-tool-actions button[aria-pressed=true],.pcompare-button[aria-pressed=true],#passagesOnlyToggle[aria-pressed=true]{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+.count-display,.pagination,.photo-help,.entry-category,.entry-id,.speaker,.source-record,.passage-actions,.work-kind,.work-source,.notebook-count,.notebook-position,.notebook-status,.field-guide-status,.places-status,.field-guide-credit,.photo-dialog .photo-credit{font:400 13px/1.5 var(--sans);letter-spacing:0;color:var(--ink-light)}
+.entry{background:var(--paper);border:1px solid var(--border-light);margin-bottom:14px;overflow:hidden}
+.entry-header{padding:14px 16px;gap:12px;border-left:0;align-items:center}
+.entry-header>span:first-child{flex:1;min-width:0}
+.entry-story,.entry-header a.entry-story{font:400 23px/1.25 var(--serif);color:var(--ink);overflow-wrap:anywhere}
+.entry-id{display:block;font-size:11px;margin-bottom:4px}
+.entry .entry-category{font-size:12px;font-style:normal;max-width:210px}
+.entry-toggle{width:44px;min-height:44px;border-radius:2px;color:var(--accent)}
+.entry-expander{font:400 24px/1 var(--sans)}
+.entry-body{padding:22px 20px;background:var(--paper);border-top:1px solid var(--border-light)}
+.entry .quote,.quote,.notebook-card .quote,.passage-comparison-column .quote,.discovery-quote{max-width:760px;margin:0 auto 20px;padding-left:18px;border-left:2px solid var(--accent);font:400 24px/1.45 var(--serif);color:var(--ink);white-space:pre-wrap}
+.context-summary,.editorial-notes,.passage-context,.entry-body>.speaker,.entry-body>.passage-actions{max-width:760px;margin-inline:auto}
+.context-summary p,.editorial-notes p,.passage-context p,.notebook-context p,.passage-comparison-column .pcompare-context,.discovery-context,.concept-definition,.concept-lafferty,.concept-detail-box .definition,.motif-description,.motif-theological,.panel-intro,.notebook-heading p,.field-guide-heading p,.field-guide-detail-heading p,.field-guide-caption,.places-heading p,.places-description,.places-detail-heading p:not(.places-kind),.photo-dialog .photo-caption{max-width:760px;font:400 18px/1.6 var(--sans);color:var(--ink)}
+.context-summary,.editorial-notes,.related-entries,.entry-citations{border-color:var(--border-light)}
+.meta-item h4,.editorial-notes h4,.context-summary h4,.related-entries h4,.notebook-title-label,.notebook-note-label,.field-guide-toolbar label,.places-toolbar label,.compare-slot label,.passage-comparison-picker label{font:500 13px/1.5 var(--sans);letter-spacing:0;text-transform:none;color:var(--ink-light)}
+.meta-grid{gap:16px;margin:20px 0}
+.tag,.discovery-tag{min-height:44px;display:inline-flex;align-items:center;padding:8px 10px;border:1px solid var(--border);border-radius:2px;background:var(--paper);font:400 12px/1.4 var(--sans);color:var(--ink);white-space:normal;overflow-wrap:anywhere}
+.tag.active{background:var(--accent);color:var(--paper);font-weight:400}
+.related-item,.related-entries .related-item{font:400 14px/1.6 var(--sans)}
+.related-entries .related-item .shared-tags{font:400 12px/1.5 var(--sans)}
+.passage-preview{font:400 20px/1.45 var(--serif)!important;color:var(--accent)}
+.text-button,.passage-actions a{font:400 14px/1.5 var(--sans);color:var(--accent)}
+.panel h2,.notebook-heading h2,.field-guide-heading h2,.places-heading h2,.passage-comparison h2,.passage-comparison-works-heading{font:400 32px/1.15 var(--serif);color:var(--ink);letter-spacing:0;text-transform:none}
+.work-card h3,.story-card h3,.pattern-header h3,.concept-name,.motif-card h4,.field-guide-card h3,.places-card h3,.notebook-card-heading h3,.passage-comparison-column h3,.photo-dialog h2{font:400 24px/1.25 var(--serif);color:var(--ink);letter-spacing:0;text-transform:none;overflow-wrap:anywhere}
+.work-card,.story-card,.pattern-card,.concept-card,.motif-card,.notebook-card,.passage-comparison-column,.field-guide-card,.places-card,.network-node,.concept-detail-box{background:var(--paper);border-color:var(--border-light);border-radius:2px;box-shadow:none}
+.index-item,.subindex-item,.subindex-header,.species-passage-link,.species-category-header{font-family:var(--sans);font-size:15px;line-height:1.5}
+.index-item .count,.subindex-item .count,.species-category-header span,.pattern-header h3 .count-badge{font:400 12px/1.4 var(--sans)}
+.notebook-title,.notebook-note,.notebook-copy-fallback textarea{font:400 18px/1.6 var(--sans)}
+.notebook-card,.passage-comparison-column{padding:20px;border-color:var(--border-light)}
+.notebook-toast{background:var(--paper);color:var(--ink);border:1px solid var(--border);border-radius:2px;font:400 14px/1.5 var(--sans)}
+.notebook-toast button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.passage-comparison-tray{background:var(--paper);color:var(--ink);border:1px solid var(--border);box-shadow:0 6px 24px #20261F18;font-family:var(--sans)}
+.discovery-modal{background:var(--paper);color:var(--ink);border:1px solid var(--border-light)}
+.discovery-modal-header{background:var(--paper);color:var(--ink);border-bottom:1px solid var(--border-light);gap:12px}
+.discovery-modal-header h3{font:400 26px/1.2 var(--serif);letter-spacing:0;text-transform:none}
+.discovery-modal-btn,.discovery-modal-btn.close-btn{min-width:44px;min-height:44px;background:var(--paper);color:var(--ink);border:1px solid var(--border);border-radius:2px}
+.discovery-modal-btn:hover,.discovery-modal-btn.close-btn:hover{background:var(--highlight);color:var(--ink)}
+.discovery-modal-content{padding:24px;min-width:0}
+.photo-dialog{background:var(--paper);color:var(--ink);border-color:var(--border-light)}
+.photo-dialog .photo-dialog-head{border-color:var(--border-light)}
+.photo-dialog .photo-kind,.photo-dialog .photo-scientific{font-family:var(--sans);color:var(--ink-light)}
+.photo-dialog .photo-views{gap:6px}
+.coverage-table-wrap{max-width:100%;overflow:auto}
+.coverage-table th,.coverage-table td{font-family:var(--sans);border-color:var(--border-light)}
+.coverage-table th{font-size:13px}
+.coverage-table td{font-size:14px;line-height:1.6}
+@media(max-width:650px){
+ .fixed-nav{padding:10px 14px 6px}
+ .tabs{position:static;padding:0 14px}
+ .tabs .tab{font-size:13px;padding:10px 12px}
+ .view-controls,.nav-breadcrumb{padding:10px 14px}
+ .panel{padding:18px 14px 32px}
+ .toolbar{gap:10px}
+ .toolbar input,.toolbar select,input:not([type=checkbox]):not([type=radio]):not([type=range]),select{min-width:0;width:100%;font-size:16px}
+ .entry-header{padding:12px;flex-wrap:wrap}
+ .entry-header>span:first-child{flex:1 1 calc(100% - 56px)}
+ .entry .entry-category{order:3;max-width:none;flex:1 1 100%}
+ .entry-body{padding:18px 14px}
+ .entry .quote,.quote,.notebook-card .quote,.passage-comparison-column .quote,.discovery-quote{font-size:23px;padding-left:14px}
+ .meta-grid,.tags-results,.patterns-grid,.story-fingerprints,.tag-categories,.cooccurrence-grid,.pattern-cards,.concepts-grid,.motifs-grid,.network-container,.comparison-columns,.passage-comparison-columns{grid-template-columns:minmax(0,1fr)}
+ .compare-slot,.compare-slot select,.passage-comparison-picker select{min-width:0;max-width:100%}
+ .notebook-card,.passage-comparison-column{padding:14px}
+ .discovery-modal-header{flex-wrap:wrap;padding:14px}
+ .discovery-modal-content{padding:18px 14px}
+}
